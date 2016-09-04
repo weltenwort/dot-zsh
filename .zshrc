@@ -38,6 +38,7 @@ DISABLE_AUTO_UPDATE="true"
 # yyyy-mm-dd
 # HIST_STAMPS="mm/dd/yyyy"
 
+ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOCONNECT=false
 
 source ~/.zgen/zgen.zsh
