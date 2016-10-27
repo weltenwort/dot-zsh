@@ -41,6 +41,13 @@ DISABLE_AUTO_UPDATE="true"
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOCONNECT=false
 
+export NVM_LAZY_LOAD=true
+
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS="--python=python2"
+export VIRTUAL_ENV_DISABLE_PROMPT=true
+export VIRTUALENV_USE_DISTRIBUTE=true
+
 source ~/.zgen/zgen.zsh
 
 # check if there's no init script
@@ -51,9 +58,9 @@ if ! zgen saved; then
 
     # plugins
     zgen oh-my-zsh plugins/battery
-    zgen oh-my-zsh plugins/colored-man
+    zgen oh-my-zsh plugins/colored-man-pages
     zgen oh-my-zsh plugins/encode64
-    zgen oh-my-zsh plugins/fabric
+    # zgen oh-my-zsh plugins/fabric
     zgen oh-my-zsh plugins/git
     zgen oh-my-zsh plugins/git-extras
     zgen oh-my-zsh plugins/history-substring-search
@@ -69,14 +76,13 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/sudo
     zgen oh-my-zsh plugins/systemd
     zgen oh-my-zsh plugins/tmux
-    zgen oh-my-zsh plugins/vagrant
+    # zgen oh-my-zsh plugins/vagrant
     zgen oh-my-zsh plugins/vim-interaction
     zgen oh-my-zsh plugins/virtualenv
-    zgen oh-my-zsh plugins/virtualenvwrapper
-    zgen oh-my-zsh plugins/vundle
-    zgen oh-my-zsh plugins/web-search
-    zgen oh-my-zsh plugins/fasd
+    # zgen oh-my-zsh plugins/virtualenvwrapper
+    # zgen oh-my-zsh plugins/fasd
 
+    zgen load willghatch/zsh-cdr
     zgen load djui/alias-tips
     zgen load nojhan/liquidprompt
     zgen load rimraf/k
@@ -84,6 +90,7 @@ if ! zgen saved; then
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zaw
     zgen load termoshtt/zaw-systemd
+    zgen load lukechilds/zsh-nvm
 
     # save all to init script
     zgen save
@@ -113,9 +120,9 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 
 if [ -e /usr/share/fzf/completion.zsh ]; then
     source /usr/share/fzf/completion.zsh
-    export FZF_COMPLETION_TRIGGER=''
-    bindkey '^T' fzf-completion
-    bindkey '^I' $fzf_default_completion
+    # export FZF_COMPLETION_TRIGGER=''
+    # bindkey '^T' fzf-completion
+    # bindkey '^I' $fzf_default_completion
 fi
 
 autoload -U compinit; compinit
@@ -129,15 +136,17 @@ zle -N edit-command-line
 bindkey ‘^xe’ edit-command-line
 bindkey ‘^x^e’ edit-command-line
 
+# zaw
+bindkey '^r' zaw-history
+zstyle ':filter-select' extended-search yes
+zstyle ':filter-select' hist-find-no-dups yes
+zstyle ':filter-select' case-insensitive yes
+
 export EDITOR="vim"
 export LESS="-RFX"
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS="--python=python2"
-export VIRTUAL_ENV_DISABLE_PROMPT=true
-export VIRTUALENV_USE_DISTRIBUTE=true
 
-source /usr/bin/virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper_lazy.sh
 
-alias psyu="sudo -E pacman -Syu"
+alias psyu="pacaur -Syu"
 alias ranger="LESS=-R TERMCMD=urxvt ranger"
-alias rvim="vim --servername ranger"
+alias vvim="vim --servername GVIM"
