@@ -63,6 +63,7 @@ if ! zgen saved; then
     # zgen oh-my-zsh plugins/fabric
     zgen oh-my-zsh plugins/git
     zgen oh-my-zsh plugins/git-extras
+    zgen oh-my-zsh plugins/github
     zgen oh-my-zsh plugins/history-substring-search
     zgen oh-my-zsh plugins/httpie
     zgen oh-my-zsh plugins/jump
@@ -91,6 +92,7 @@ if ! zgen saved; then
     zgen load zsh-users/zaw
     zgen load termoshtt/zaw-systemd
     zgen load lukechilds/zsh-nvm
+    zgen load mrkmg/borgbackup-zsh-completion
 
     # save all to init script
     zgen save
