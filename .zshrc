@@ -100,7 +100,7 @@ fi
 
 # User configuration
 
-export PATH=$HOME/bin:$HOME/.gem/ruby/2.2.0/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/.gem/ruby/2.2.0/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
