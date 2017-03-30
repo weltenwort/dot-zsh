@@ -44,9 +44,7 @@ ZSH_TMUX_AUTOCONNECT=false
 export NVM_LAZY_LOAD=true
 
 export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS="--python=python2"
 export VIRTUAL_ENV_DISABLE_PROMPT=true
-export VIRTUALENV_USE_DISTRIBUTE=true
 
 source ~/.zgen/zgen.zsh
 
