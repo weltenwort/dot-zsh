@@ -150,3 +150,8 @@ source /usr/bin/virtualenvwrapper_lazy.sh
 alias psyu="pacaur -Syu"
 alias ranger="LESS=-R TERMCMD=urxvt ranger"
 alias vvim="vim --servername GVIM"
+
+gbp() {
+    local issue="$1" refspec="$2" branch="$3"
+    git pull --ff-only origin "${branch}" && git checkout -b "backport/${issue}/${branch}" "${branch}" && git cherry-pick -e "${refspec}"
+}
