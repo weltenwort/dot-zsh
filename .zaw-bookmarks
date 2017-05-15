@@ -3,7 +3,7 @@ nvm\ install\ \$\(cat\ .node-version\)
 nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ DISPLAY=:1\ npm\ run\ test:ui:server
 nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ install
 nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ run\ elasticsearch
-nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ run\ makelogs\ --\ -d\ 0/10\ -c\ 2000
+nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ node\ scripts/makelogs.js\ -d\ 0/10\ -c\ 2000
 nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ run\ test:dev
 nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ start
 python3\ -m\ http.server
