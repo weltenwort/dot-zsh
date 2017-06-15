@@ -153,5 +153,10 @@ alias vvim="vim --servername GVIM"
 
 gbp() {
     local issue="$1" refspec="$2" branch="$3"
-    git pull --ff-only origin "${branch}" && git checkout -b "backport/${issue}/${branch}" "${branch}" && git cherry-pick -e "${refspec}"
+    git fetch origin "${branch}:${branch}" && git checkout -b "backport/${issue}/${branch}" "${branch}" && git cherry-pick -e "${refspec}"
+}
+
+gbp-pr() {
+    local issue="$1" branch="$2"
+    hub compare "${branch}...weltenwort:backport/${issue}/${branch}"
 }
