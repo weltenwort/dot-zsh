@@ -74,6 +74,7 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/gpg-agent
     zgen oh-my-zsh plugins/sudo
     zgen oh-my-zsh plugins/systemd
+    zgen oh-my-zsh plugins/taskwarrior
     zgen oh-my-zsh plugins/tmux
     # zgen oh-my-zsh plugins/vagrant
     zgen oh-my-zsh plugins/vim-interaction
@@ -91,6 +92,7 @@ if ! zgen saved; then
     zgen load termoshtt/zaw-systemd
     zgen load lukechilds/zsh-nvm
     zgen load mrkmg/borgbackup-zsh-completion
+    zgen load Vifon/deer
 
     # save all to init script
     zgen save
@@ -135,6 +137,11 @@ autoload -U edit-command-line
 zle -N edit-command-line
 bindkey ‘^xe’ edit-command-line
 bindkey ‘^x^e’ edit-command-line
+
+# deer
+autoload -U deer
+zle -N deer
+bindkey '\ek' deer
 
 # zaw
 bindkey '^r' zaw-history
