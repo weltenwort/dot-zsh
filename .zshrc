@@ -55,6 +55,7 @@ if ! zgen saved; then
     zgen oh-my-zsh
 
     # plugins
+    zgen oh-my-zsh plugins/aws
     zgen oh-my-zsh plugins/battery
     zgen oh-my-zsh plugins/colored-man-pages
     zgen oh-my-zsh plugins/encode64
@@ -93,6 +94,7 @@ if ! zgen saved; then
     zgen load lukechilds/zsh-nvm
     zgen load mrkmg/borgbackup-zsh-completion
     zgen load Vifon/deer
+    zgen load greymd/tmux-xpanes
 
     # save all to init script
     zgen save
@@ -166,4 +168,9 @@ gbp() {
 gbp-pr() {
     local issue="$1" branch="$2"
     hub compare "${branch}...weltenwort:backport/${issue}/${branch}"
+}
+
+gbp-all() {
+    local issue="$1" refspec="$2" branch="$3"
+    gbp "${issue}" "${refspec}" "${branch}" && gp weltenwort && gbp-pr "${issue}" "${branch}"
 }

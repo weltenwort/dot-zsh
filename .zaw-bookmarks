@@ -9,3 +9,4 @@ nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ run\ elasticsearch
 nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ run\ test:dev
 nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ start
 python3\ -m\ http.server
+xpanes\ -d\ -e\ \'nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ start\ --\ --no-base-path\'\ \'nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ run\ elasticsearch\'
