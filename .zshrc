@@ -67,6 +67,7 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/history-substring-search
     zgen oh-my-zsh plugins/httpie
     zgen oh-my-zsh plugins/jump
+    zgen oh-my-zsh plugins/kubectl
     zgen oh-my-zsh plugins/mercurial
     zgen oh-my-zsh plugins/mosh
     zgen oh-my-zsh plugins/pass
@@ -156,6 +157,9 @@ export EDITOR="vim"
 export LESS="-RFX"
 
 source /usr/bin/virtualenvwrapper_lazy.sh
+
+# OPAM configuration
+. /home/laeroth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 alias psyu="pacaur -Syu"
 alias ranger="LESS=-R TERMCMD=urxvt ranger"
