@@ -39,6 +39,14 @@ DISABLE_AUTO_UPDATE="true"
 # HIST_STAMPS="mm/dd/yyyy"
 
 zstyle :omz:plugins:ssh-agent agent-forwarding on
+# zstyle ':completion:::::' completer _complete _approximate
+# zstyle ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
+zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
+# zstyle ':completion:*' matcher-list '' \
+#   'm:{a-z\-}={A-Z\_}' \
+#   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+#   'r:|?=** m:{a-z\-}={A-Z\_}'
+
 ZSH_TMUX_AUTOSTART=true
 ZSH_TMUX_AUTOCONNECT=false
 
@@ -155,6 +163,7 @@ zstyle ':filter-select' case-insensitive yes
 
 export EDITOR="vim"
 export LESS="-RFX"
+export PKGEXT=".pkg.tar"
 
 source /usr/bin/virtualenvwrapper_lazy.sh
 
