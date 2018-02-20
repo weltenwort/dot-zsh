@@ -173,6 +173,10 @@ alias psyu="trizen -Syu"
 alias ranger="LESS=-R TERMCMD=urxvt ranger"
 alias vvim="vim --servername GVIM"
 
+knvm() {
+    nvm install "$(cat .node-version)"
+}
+
 gbp() {
     local issue="$1" refspec="$2" branch="$3"
     git fetch origin "${branch}:${branch}" && git checkout -b "backport/${issue}/${branch}" "${branch}" && git cherry-pick -e "${refspec}"
