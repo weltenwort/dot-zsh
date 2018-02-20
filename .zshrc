@@ -169,7 +169,7 @@ source /usr/bin/virtualenvwrapper_lazy.sh
 # OPAM configuration
 . /home/laeroth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-alias psyu="pacaur -Syu"
+alias psyu="trizen -Syu"
 alias ranger="LESS=-R TERMCMD=urxvt ranger"
 alias vvim="vim --servername GVIM"
 
