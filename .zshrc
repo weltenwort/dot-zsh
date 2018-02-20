@@ -96,7 +96,6 @@ if ! zgen saved; then
     zgen load willghatch/zsh-cdr
     zgen load djui/alias-tips
     zgen load nojhan/liquidprompt
-    zgen load rimraf/k
     zgen load zsh-users/zsh-completions src
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zaw
