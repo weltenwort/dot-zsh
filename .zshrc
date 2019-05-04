@@ -38,6 +38,8 @@ DISABLE_AUTO_UPDATE="true"
 # yyyy-mm-dd
 # HIST_STAMPS="mm/dd/yyyy"
 
+zmodload zsh/complist
+autoload -U compinit; compinit
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 # zstyle ':completion:::::' completer _complete _approximate
 # zstyle ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
@@ -46,11 +48,20 @@ zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower
 #   'm:{a-z\-}={A-Z\_}' \
 #   'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
 #   'r:|?=** m:{a-z\-}={A-Z\_}'
+setopt GLOB_COMPLETE
+setopt menucomplete
+zstyle ':completion:*' menu select=0 interactive
+bindkey -M menuselect '^F' vi-insert
 
-ZSH_TMUX_AUTOSTART=true
+if [ -e ~/.cache/wal/sequences ]; then
+    (cat ~/.cache/wal/sequences &)
+fi
+if [ -e ~/.cache/wal/colors-tty.sh ]; then
+    (source ~/.cache/wal/colors-tty.sh &)
+fi
+
+ZSH_TMUX_AUTOSTART=${ZSH_TMUX_AUTOSTART:-true}
 ZSH_TMUX_AUTOCONNECT=false
-
-export NVM_LAZY_LOAD=true
 
 export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUAL_ENV_DISABLE_PROMPT=true
@@ -64,11 +75,13 @@ if ! zgen saved; then
     zgen oh-my-zsh
 
     # plugins
+    zgen oh-my-zsh plugins/asdf
     zgen oh-my-zsh plugins/aws
     zgen oh-my-zsh plugins/battery
     zgen oh-my-zsh plugins/colored-man-pages
     zgen oh-my-zsh plugins/encode64
     # zgen oh-my-zsh plugins/fabric
+    zgen oh-my-zsh plugins/fasd
     zgen oh-my-zsh plugins/git
     zgen oh-my-zsh plugins/git-extras
     zgen oh-my-zsh plugins/github
@@ -88,6 +101,7 @@ if ! zgen saved; then
     zgen oh-my-zsh plugins/taskwarrior
     zgen oh-my-zsh plugins/tmux
     # zgen oh-my-zsh plugins/vagrant
+    zgen oh-my-zsh plugins/vault
     zgen oh-my-zsh plugins/vim-interaction
     zgen oh-my-zsh plugins/virtualenv
     # zgen oh-my-zsh plugins/virtualenvwrapper
@@ -100,7 +114,6 @@ if ! zgen saved; then
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load zsh-users/zaw
     zgen load termoshtt/zaw-systemd
-    zgen load lukechilds/zsh-nvm
     zgen load mrkmg/borgbackup-zsh-completion
     zgen load Vifon/deer
     zgen load greymd/tmux-xpanes
@@ -111,7 +124,7 @@ fi
 
 # User configuration
 
-export PATH=$HOME/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/.gem/ruby/2.2.0/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.luarocks/bin:$HOME/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/.gem/ruby/2.2.0/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # # Preferred editor for local and remote sessions
@@ -128,8 +141,10 @@ export PATH=$HOME/bin:$HOME/.gem/ruby/2.3.0/bin:$HOME/.gem/ruby/2.2.0/bin:/usr/l
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 # Base16 Shell
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+# BASE16_SHELL=$HOME/.config/base16-shell/
+# [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+export LP_PS1_PREFIX=" "
 
 if [ -e /usr/share/fzf/completion.zsh ]; then
     source /usr/share/fzf/completion.zsh
@@ -138,16 +153,12 @@ if [ -e /usr/share/fzf/completion.zsh ]; then
     # bindkey '^I' $fzf_default_completion
 fi
 
-autoload -U compinit; compinit
-setopt GLOB_COMPLETE
-
 autoload zmv
 alias zmv='noglob zmv'
 
 autoload -U edit-command-line
 zle -N edit-command-line
 bindkey ‘^xe’ edit-command-line
-bindkey ‘^x^e’ edit-command-line
 
 # deer
 autoload -U deer
@@ -156,6 +167,10 @@ bindkey '\ek' deer
 
 # zaw
 bindkey '^r' zaw-history
+bindkey '^xd' zaw-fasd-directories
+bindkey '^xf' zaw-fasd-files
+bindkey '^xb' zaw-git-branches
+bindkey '^xs' zaw-git-status
 zstyle ':filter-select' extended-search yes
 zstyle ':filter-select' hist-find-no-dups yes
 zstyle ':filter-select' case-insensitive yes
@@ -166,16 +181,23 @@ export PKGEXT=".pkg.tar"
 
 source /usr/bin/virtualenvwrapper_lazy.sh
 
-# OPAM configuration
-. /home/laeroth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+if [ -e $HOME/.asdf/completions/asdf.bash ]; then
+    source $HOME/.asdf/completions/asdf.bash
+fi
 
-alias psyu="trizen -Syu"
+# OPAM configuration
+# . /home/laeroth/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# luarocks
+export LUA_PATH='/home/laeroth/.luarocks/share/lua/5.3/?.lua;/home/laeroth/.luarocks/share/lua/5.3/?/init.lua;/usr/share/lua/5.3/?.lua;/usr/share/lua/5.3/?/init.lua;/usr/lib/lua/5.3/?.lua;/usr/lib/lua/5.3/?/init.lua;./?.lua;./?/init.lua'
+export LUA_CPATH='/home/laeroth/.luarocks/lib/lua/5.3/?.so;/usr/lib/lua/5.3/?.so;/usr/lib/lua/5.3/loadall.so;./?.so'
+
+alias psyu="pikaur -Syu"
 alias ranger="LESS=-R TERMCMD=urxvt ranger"
 alias vvim="vim --servername GVIM"
-
-knvm() {
-    nvm install "$(cat .node-version)"
-}
+alias gD="git icdiff"
+alias gDca="git icdiff --cached"
+alias timestamp="date +%FT%H-%M-%S"
 
 gbp() {
     local issue="$1" refspec="$2" branch="$3"

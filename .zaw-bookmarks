@@ -1,12 +1,9 @@
+ansible-playbook\ --private-key\ ~/.ssh/google_compute_engine\ -i\ ./hosts\ --extra-vars\ @local-extra-vars.yml\ --limit\ elasticsearch\ --diff\ -vv\ ./playbook.yml
+\(cd\ ~/Projects/elastic/worktrees-infra-ui/kibana\ \&\&\ xpanes\ -d\ -e\ -l\ eh\ \'yarn\ start\ --no-base-path\ --no-watch\'\ \'yarn\ tsc\ --noEmit\ --watch\ --pretty\ --project\ x-pack\'\)
+\(cd\ x-pack\ \&\&\ node\ scripts/functional_tests_server.js\)
 ENTR_EXIT=2\;\ while\ \[\[\ \"\$ENTR_EXIT\"\ ==\ \"2\"\ \]\]\;\ do\ find\ ../kibana/docs\ -type\ f\ \|\ entr\ -d\ ./build_docs.pl\ --doc\ ../kibana/docs/index.asciidoc\;\ ENTR_EXIT=\$\?\;\ done
 FILE=\"\"\ FILTERS=\"fps=5,scale=1024:-1:flags=lanczos\"\ PALETTE=\"/tmp/palette.png\"\ \\$'\n'\ \ \&\&\ ffmpeg\ -v\ warning\ -i\ \$FILE\ -vf\ \"\$FILTERS,palettegen\"\ -y\ \$PALETTE\ \\$'\n'\ \ \&\&\ ffmpeg\ -v\ warning\ -i\ \$FILE\ -i\ \$PALETTE\ -lavfi\ \"\$FILTERS\ \[x\]\;\ \[x\]\[1:v\]\ paletteuse\"\ -y\ \$FILE.gif
+grb\ --onto=master\ HEAD~1\ \$\(git\ rev-parse\ --abbrev-ref\ HEAD\)
 http\ -a\ elastic:\ PUT\ \":9200/_xpack/security/user/elastic/_password\"\ \"password=changeme\"
-nvm\ install\ \$\(cat\ .node-version\)
-nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ DISPLAY=:1\ npm\ run\ test:ui:server
-nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ node\ scripts/makelogs.js\ -d\ 0/10\ -c\ 2000
-nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ install
-nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ run\ elasticsearch
-nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ run\ test:dev
-nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ start
+node\ scripts/functional_test_runner.js\ --config\ x-pack/test/api_integration/config.js
 python3\ -m\ http.server
-xpanes\ -d\ -e\ \'nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ start\ --\ --no-base-path\'\ \'nvm\ install\ \$\(cat\ .node-version\)\ \&\&\ npm\ run\ elasticsearch\'
